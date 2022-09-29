@@ -211,10 +211,10 @@ static void PrintNumbers(int[] numbers)
 
 class Cat
 {
-	public string name;
-	public string color;
-	public int age;
-	public float catness;
+	private string name;
+	private string color;
+	private int age;
+	private float catness;
 
 	public Cat(string _name, string _color, int _age, int _catness)
 	{
