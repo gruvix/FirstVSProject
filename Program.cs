@@ -146,16 +146,28 @@ switch (level) //most variables are defined inside each case, as this program is
 
 
 	case 7:
-		Cat cat1 = new Cat();
-		Console.WriteLine("Write the name of the cat");//The Name
-		cat1.name= makeCapsAndLows(Console.ReadLine());
-		Console.WriteLine("Write the color of the cat");//The Color
-		cat1.color = makeCapsAndLows(Console.ReadLine());
-		Console.WriteLine("Write the age of the cat");//The Age
-		cat1.age = Convert.ToInt32(Console.ReadLine());
-		Console.WriteLine("Write the catness of the cat (out of 100)");//The Catness
-		cat1.catness = Convert.ToInt32(Console.ReadLine());
-		PrintCat(cat1, vowels);//prints the cat
+		Console.WriteLine("How many cats do you wish to create?");
+		int u = Convert.ToInt32(Console.ReadLine());
+		List<Cat> cats = new List<Cat>();
+		for(int i = 0; i < u; i++)
+		{
+			Console.WriteLine("Write the name of the cat");//The Name
+			string catname= makeCapsAndLows(Console.ReadLine());
+			Console.WriteLine("Write the color of the cat");//The Color
+			string catcolor = makeCapsAndLows(Console.ReadLine());
+			Console.WriteLine("Write the age of the cat");//The Age
+			int catage = Convert.ToInt32(Console.ReadLine());
+			Console.WriteLine("Write the catness of the cat (out of 100)");//The Catness
+			int catcatness = Convert.ToInt32(Console.ReadLine());
+
+			Cat catnew = new Cat(catname, catcolor, catage, catcatness);//Make the cat
+			cats.Add(catnew);//add the cat to the list
+		}
+
+		foreach(Cat cat in cats)
+		{
+			Cat.PrintCat(cat, vowels);//prints the cat
+		}
 		break;
 
 
@@ -172,17 +184,6 @@ static string makeCapsAndLows (string strang)
 {
 	strang = char.ToUpper(strang[0]) + strang.Substring(1).ToLower();//Make name first letter Upper and the rest Lower
 	return strang;
-}
-
-
-static void PrintCat(Cat cat, HashSet<char> vs )
-{
-	string colorPrefix = "a ";
-	Console.WriteLine("---------------------------------------\nThe cat is called " + cat.name + ".");
-	if (vs.Contains(cat.color[0])) { colorPrefix = "an ";}//in case of vowels
-	Console.WriteLine("It is " + colorPrefix + cat.color + " cat.");
-	Console.WriteLine("It is " + cat.age + " years old.");
-	Console.WriteLine("It has a catness of " + cat.catness + "/100.");
 }
 
 
@@ -214,4 +215,23 @@ class Cat
 	public string color;
 	public int age;
 	public float catness;
+
+	public Cat(string _name, string _color, int _age, int _catness)
+	{
+		name = _name;
+		color = _color;
+		age = _age;
+		catness = _catness;
+	}
+
+	public static void PrintCat(Cat cat, HashSet<char> vs )//instead of removing static, vowels were added to the method call, not relevant in this case
+	{
+		string colorPrefix = "a ";
+		Console.WriteLine("---------------------------------------\nThe cat is called " + cat.name + ".");
+		if (vs.Contains(cat.color[0])) { colorPrefix = "an ";}//in case of vowels
+		Console.WriteLine("It is " + colorPrefix + cat.color + " cat.");
+		Console.WriteLine("It is " + cat.age + " years old.");
+		Console.WriteLine("It has a catness of " + cat.catness + "/100.");
+	}
+
 }
