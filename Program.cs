@@ -6,7 +6,7 @@ Console.Title = "FirstSolo";
 Console.ForegroundColor = ConsoleColor.Blue;
 Console.WindowHeight = 40;
 //Interaction ahead
-Console.WriteLine("Select level\n1:Input Output\n2:Loop\n3:Roll random while\n4:Array\n5:List");
+Console.WriteLine("Select level\n1:Input Output\n2:Loop\n3:Roll random while\n4:Array\n5:List\n6:Method (random numbers)");
 int level = Convert.ToInt32(Console.ReadLine());
 
 Random randomGen = new Random ();//is used in multiple cases
@@ -117,7 +117,7 @@ switch (level) //most variables are defined inside each case, as this program is
 			{
 				float price = randomGen.Next(1,100000);
 				price /= 100;
-				var listInput = userInput + "  $" + price.ToString();
+				var listInput = userInput + "  $" + price.ToString();//very ugly way to add the price, the correct way would be a 2 lists with items and prices
 				total += price;
 				groceriesList.Add(listInput);
 			}
@@ -135,12 +135,30 @@ switch (level) //most variables are defined inside each case, as this program is
 
 		break;
 
+	case 6:
+		Console.WriteLine("How many random numbers do you want?");
+		int print = Convert.ToInt32(Console.ReadLine());
+		PrintNumber(print);
+		break;
+
 	default:
 				Console.WriteLine("Input Error");
 		break;//end of default case
 
 	}
 
-Console.WriteLine("Press any key to EXIT");
+Console.WriteLine("Press any key to EXIT");//wait before closing
 Console.ReadKey();//ends program
+
+void PrintNumber(int u)//it is NOT static, it uses randomGen variable to work and it was created on "Main"
+{
+	Console.WriteLine("Generating Numbers...");
+	int number;
+	for(int i = 0; i < u; i++)
+	{
+		number = randomGen.Next(0,100);
+		Console.WriteLine(number.ToString());
+	}
+	Console.WriteLine("this method (6) is different to (3) as it uses a method for generating and printing the numbers");
+}
 
