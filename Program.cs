@@ -1,15 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Data.Common;
 using System.Security.Cryptography;
 
 
 Console.Title = "FirstSolo";
 Console.ForegroundColor = ConsoleColor.Blue;
 Console.WindowHeight = 40;
+//Main Variables
+Random randomGen = new Random ();//is used in multiple cases
+var vowels = new HashSet<char> { 'A', 'E', 'I', 'O', 'U'};
 //Interaction ahead
-Console.WriteLine("Select level\n1:Input Output\n2:Loop\n3:Roll random while\n4:Array\n5:List\n6:Method (random numbers)");
+Console.WriteLine("Select level\n1:Input Output (presentation)\n2:Loop\n3:Roll random while (just random untill condition)\n4:Array (name shows)\n5:List (shopping list)\n6:Method (random numbers)\n7:Class (make a cat)");
 int level = Convert.ToInt32(Console.ReadLine());
 
-Random randomGen = new Random ();//is used in multiple cases
+
 
 switch (level) //most variables are defined inside each case, as this program is just a test there was no need for maximun efficiency
 	{ 
@@ -131,18 +135,32 @@ switch (level) //most variables are defined inside each case, as this program is
 			Console.WriteLine(strang);
 		}
 		Console.WriteLine("Final Price: $" + total.ToString());
-
-
 		break;
+
 
 	case 6:
 		Console.WriteLine("How many random numbers do you want?");
 		int print = Convert.ToInt32(Console.ReadLine());
-		PrintNumber(print);
+		PrintNumbers(MakeNumbers(print));
 		break;
 
+
+	case 7:
+		Cat cat1 = new Cat();
+		Console.WriteLine("Write the name of the cat");//The Name
+		cat1.name= makeCapsAndLows(Console.ReadLine());
+		Console.WriteLine("Write the color of the cat");//The Color
+		cat1.color = makeCapsAndLows(Console.ReadLine());
+		Console.WriteLine("Write the age of the cat");//The Age
+		cat1.age = Convert.ToInt32(Console.ReadLine());
+		Console.WriteLine("Write the catness of the cat (out of 100)");//The Catness
+		cat1.catness = Convert.ToInt32(Console.ReadLine());
+		PrintCat(cat1, vowels);//prints the cat
+		break;
+
+
 	default:
-				Console.WriteLine("Input Error");
+		Console.WriteLine("Input Error");
 		break;//end of default case
 
 	}
@@ -150,15 +168,50 @@ switch (level) //most variables are defined inside each case, as this program is
 Console.WriteLine("Press any key to EXIT");//wait before closing
 Console.ReadKey();//ends program
 
-void PrintNumber(int u)//it is NOT static, it uses randomGen variable to work and it was created on "Main"
+static string makeCapsAndLows (string strang)
+{
+	strang = char.ToUpper(strang[0]) + strang.Substring(1).ToLower();//Make name first letter Upper and the rest Lower
+	return strang;
+}
+
+
+static void PrintCat(Cat cat, HashSet<char> vs )
+{
+	string colorPrefix = "a ";
+	Console.WriteLine("---------------------------------------\nThe cat is called " + cat.name + ".");
+	if (vs.Contains(cat.color[0])) { colorPrefix = "an ";}//in case of vowels
+	Console.WriteLine("It is " + colorPrefix + cat.color + " cat.");
+	Console.WriteLine("It is " + cat.age + " years old.");
+	Console.WriteLine("It has a catness of " + cat.catness + "/100.");
+}
+
+
+int[] MakeNumbers(int u)//it is NOT static, it uses randomGen variable to work and it was created on "Main"
 {
 	Console.WriteLine("Generating Numbers...");
 	int number;
+	int[] randomNumbers = new int[u];
 	for(int i = 0; i < u; i++)
 	{
 		number = randomGen.Next(0,100);
-		Console.WriteLine(number.ToString());
+		randomNumbers[i] = number;
 	}
-	Console.WriteLine("this method (6) is different to (3) as it uses a method for generating and printing the numbers");
+	Console.WriteLine("this method (6) is different to (3) as it uses methods for generating and printing the numbers");
+	return randomNumbers;
 }
 
+static void PrintNumbers(int[] numbers)
+{
+	for(int i = 0; i<numbers.Length; i++)
+	{
+		Console.WriteLine(numbers[i].ToString());
+	}
+}
+
+class Cat
+{
+	public string name;
+	public string color;
+	public int age;
+	public float catness;
+}
