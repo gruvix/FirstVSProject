@@ -168,6 +168,8 @@ switch (level) //most variables are defined inside each case, as this program is
 		{
 			Cat.PrintCat(cat, vowels);//prints the cat
 		}
+
+		Console.WriteLine("\nYou created " + Cat.count.ToString() + " cats.");
 		break;
 
 
@@ -177,7 +179,7 @@ switch (level) //most variables are defined inside each case, as this program is
 
 	}
 
-Console.WriteLine("Press any key to EXIT");//wait before closing
+Console.WriteLine("\nPress any key to EXIT");//wait before closing
 Console.ReadKey();//ends program
 
 static string makeCapsAndLows (string strang)
@@ -216,12 +218,16 @@ class Cat
 	private int age;
 	private float catness;
 
+	public static int count;
+
 	public Cat(string _name, string _color, int _age, int _catness)
 	{
 		name = _name;
 		color = _color;
 		age = _age;
 		catness = _catness;
+
+		count++;
 	}
 
 	public static void PrintCat(Cat cat, HashSet<char> vs )//instead of removing static, vowels were added to the method call, not relevant in this case
