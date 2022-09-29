@@ -2,7 +2,6 @@
 using System.Data.Common;
 using System.Security.Cryptography;
 
-
 Console.Title = "FirstSolo";
 Console.ForegroundColor = ConsoleColor.Blue;
 Console.WindowHeight = 40;
