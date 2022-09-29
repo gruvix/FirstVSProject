@@ -111,16 +111,18 @@ switch (level) //most variables are defined inside each case, as this program is
 		string userInput = "";
 		float total = 0f;
 		while (userInput != "END")
+
 		{
 			if(userInput != "END" && userInput != "")
-			{ 
-				userInput = userInput.ToUpper();
-				float price = randomGen.Next(1,100000)/100;
+			{
+				float price = randomGen.Next(1,100000);
+				price /= 100;
 				var listInput = userInput + "  $" + price.ToString();
 				total += price;
 				groceriesList.Add(listInput);
 			}
-			userInput = Console.ReadLine();
+			userInput = Console.ReadLine();//this fixed a bug here
+			userInput = userInput.ToUpper();
 		}
 
 		Console.WriteLine("Here are the prices:");
@@ -128,7 +130,7 @@ switch (level) //most variables are defined inside each case, as this program is
 		{
 			Console.WriteLine(strang);
 		}
-		Console.WriteLine("Final Price: $" + total);
+		Console.WriteLine("Final Price: $" + total.ToString());
 
 
 		break;
